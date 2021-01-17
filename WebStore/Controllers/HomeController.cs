@@ -17,9 +17,10 @@ namespace WebStore.Controllers
         };
         public IActionResult Index() => View();
  
-        public IActionResult SecondAction()
+        public IActionResult Employee(int id)
         {
-            return Content("Second controller action");
+            ViewData["Employee"] = id;
+            return View(__Employees);
         }
 
         public IActionResult Employees()
