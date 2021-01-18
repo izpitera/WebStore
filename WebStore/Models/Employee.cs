@@ -12,6 +12,9 @@ namespace WebStore.Models
         public string LastName { get; set; }
         public string Patronymic { get; set; }
         public int Age { get; set; }
+        public string Sex { get; set; }
+        public int Salary { get; set; }
+        public string Citizenship { get; set; }
 
     }
 }
