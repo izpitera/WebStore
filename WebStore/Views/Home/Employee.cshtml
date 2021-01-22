@@ -1,0 +1,31 @@
+﻿@using WebStore.Models
+@model IEnumerable<WebStore.Models.Employee>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Employee</title>
+</head>
+
+<body>
+<p>Employee Id: @ViewData["Employee"]</p>
+<ul>
+    @foreach (var employee in Model)
+    {
+        if (employee.Id == (int)ViewData["Employee"])
+        {
+            <li>Фамилия: @employee.LastName</li>
+            <li>Имя: @employee.FirstName</li>
+            <li>Отчество: @employee.Patronymic</li>
+            <li>Пол: @employee.Sex</li>
+            <li>Возраст: @employee.Age</li>
+            <li>Гражданство: @employee.Citizenship</li>
+            <li>Заработная плата: @employee.Salary</li>
+        }
+    }
+</ul>
+    <a href="~/Home/Employees">Сотрудники</a>
+</body>
+</html>
