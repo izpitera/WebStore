@@ -13,23 +13,47 @@ namespace WebStore.Data
         {
             new Employee
             {
-                Id = 1, LastName = "Иванов", FirstName = "Иван", Patronymic = "Иванович", Age = 37, Sex = "Мужской",
-                Citizenship = "Россия", Salary = 56000
+                Id = 1,
+                LastName = "Иванов",
+                FirstName = "Иван",
+                Patronymic = "Иванович",
+                Age = 37,
+                Sex = "Мужской",
+                Citizenship = "Россия",
+                Salary = 56000
             },
             new Employee
             {
-                Id = 2, LastName = "Петров", FirstName = "Пётр", Patronymic = "Петрович", Age = 27, Sex = "Мужской",
-                Citizenship = "Киргизия", Salary = 47000
+                Id = 2,
+                LastName = "Петров",
+                FirstName = "Пётр",
+                Patronymic = "Петрович",
+                Age = 27,
+                Sex = "Мужской",
+                Citizenship = "Киргизия",
+                Salary = 47000
             },
             new Employee
             {
-                Id = 3, LastName = "Васечкина", FirstName = "Изольда", Patronymic = "Станиславовна", Age = 23,
-                Sex = "Женский", Citizenship = "Россия", Salary = 45000
+                Id = 3,
+                LastName = "Васечкина",
+                FirstName = "Изольда",
+                Patronymic = "Станиславовна",
+                Age = 23,
+                Sex = "Женский",
+                Citizenship = "Россия",
+                Salary = 45000
             },
             new Employee
             {
-                Id = 4, LastName = "Васечкин", FirstName = "Василий", Patronymic = "Васильевич", Age = 25,
-                Sex = "Мужской", Citizenship = "Россия", Salary = 38000
+                Id = 4,
+                LastName = "Васечкин",
+                FirstName = "Василий",
+                Patronymic = "Васильевич",
+                Age = 25,
+                Sex = "Мужской",
+                Citizenship = "Россия",
+                Salary = 38000
             }
         };
 
@@ -247,7 +271,7 @@ namespace WebStore.Data
             },
         };
 
-        public static IEnumerable<Brand> Brands { get; } = new []
+        public static IEnumerable<Brand> Brands { get; } = new[]
         {
             new Brand()
             {
@@ -290,7 +314,131 @@ namespace WebStore.Data
                 Id = 7,
                 Name = "Rösch creative culture",
                 Order = 6
-            }, 
+            },
+        };
+
+        public static IEnumerable<Product> Products { get; } = new[]
+        {
+            new Product 
+            {
+                Id = 1,
+                Name = "Easy Polo Black Edition",
+                Price = 59.99M,
+                ImageUrl = "product1.jpg",
+                Order = 0,
+                SectionId = 2,
+                BrandId = 1
+            },
+            new Product
+            {
+                Id = 2,
+                Name = "Easy Polo Black Edition",
+                Price = 59.99M,
+                ImageUrl = "product2.jpg",
+                Order = 1,
+                SectionId = 2,
+                BrandId = 1
+            },
+            new Product
+            {
+                Id = 3,
+                Name = "Easy Polo Black Edition",
+                Price = 59.99M,
+                ImageUrl = "product3.jpg",
+                Order = 2,
+                SectionId = 2,
+                BrandId = 1
+            },
+            new Product
+            {
+                Id = 4,
+                Name = "Easy Polo Black Edition",
+                Price = 59.99M,
+                ImageUrl = "product4.jpg",
+                Order = 3,
+                SectionId = 2,
+                BrandId = 1
+            },
+            new Product
+            {
+                Id = 5,
+                Name = "Easy Polo Black Edition",
+                Price = 59.99M,
+                ImageUrl = "product5.jpg",
+                Order = 4,
+                SectionId = 2,
+                BrandId = 2
+            },
+            new Product
+            {
+                Id = 6,
+                Name = "Easy Polo Black Edition",
+                Price = 59.99M,
+                ImageUrl = "product6.jpg",
+                Order = 5,
+                SectionId = 2,
+                BrandId = 2
+            },
+            new Product
+            {
+                Id = 7,
+                Name = "Easy Polo Black Edition",
+                Price = 59.99M,
+                ImageUrl = "product7.jpg",
+                Order = 6,
+                SectionId = 2,
+                BrandId = 2
+            },
+            new Product
+            {
+                Id = 8,
+                Name = "Easy Polo Black Edition",
+                Price = 59.99M,
+                ImageUrl = "product8.jpg",
+                Order = 7,
+                SectionId = 25,
+                BrandId = 2
+            },
+            new Product
+            {
+                Id = 9,
+                Name = "Easy Polo Black Edition",
+                Price = 59.99M,
+                ImageUrl = "product9.jpg",
+                Order = 8,
+                SectionId = 25,
+                BrandId = 2
+            },
+            new Product
+            {
+                Id = 10,
+                Name = "Easy Polo Black Edition",
+                Price = 59.99M,
+                ImageUrl = "product10.jpg",
+                Order = 9,
+                SectionId = 25,
+                BrandId = 3
+            },
+            new Product
+            {
+                Id = 11,
+                Name = "Easy Polo Black Edition",
+                Price = 59.99M,
+                ImageUrl = "product11.jpg",
+                Order = 10,
+                SectionId = 25,
+                BrandId = 3
+            },
+            new Product
+            {
+                Id = 12,
+                Name = "Easy Polo Black Edition",
+                Price = 59.99M,
+                ImageUrl = "product12.jpg",
+                Order = 11,
+                SectionId = 25,
+                BrandId = 3
+            },
         };
     }
 }
