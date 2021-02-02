@@ -11,7 +11,7 @@ namespace WebStore.Domain.Entities
 {   [Table("Brands")]
     public class Brand: NamedEntity, IOrderedEntity
     {
-        [Column("BrandOrder")]
+        //[Column("BrandOrder")]
         public int Order { get; set; }
 
         public ICollection<Product> Products { get; set; }
