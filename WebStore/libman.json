@@ -1,0 +1,30 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "twitter-bootstrap@3.0.3",
+      "destination": "wwwroot/lib/bootstrap/"
+    },
+    {
+      "library": "jquery@1.10.2",
+      "destination": "wwwroot/lib/jquery/"
+    },
+    {
+      "library": "html5shiv@3.6.2pre",
+      "destination": "wwwroot/lib/html5shiv/"
+    },
+    {
+      "library": "gmaps.js@0.4.9",
+      "destination": "wwwroot/lib/gmaps.js/"
+    },
+    {
+      "library": "prettyPhoto@3.1.6",
+      "destination": "wwwroot/lib/prettyPhoto/"
+    },
+    {
+      "library": "font-awesome@5.15.2",
+      "destination": "wwwroot/lib/font-awesome/"
+    }
+  ]
+}
