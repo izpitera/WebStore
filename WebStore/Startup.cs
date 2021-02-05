@@ -8,6 +8,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using WebStore.Infrastructure.Conventions;
+using WebStore.Infrastructure.Interfaces;
+using WebStore.Infrastructure.Middleware;
+using WebStore.Infrastructure.Services;
 
 namespace WebStore
 {
@@ -23,8 +27,10 @@ namespace WebStore
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddMvc();
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddTransient<IEmployeesData, InMemoryEmployeesData>();
+            //services.AddMvc(/*opt => opt.Conventions.Add(new TestControllerModelConvention())*/);
+            services.AddControllersWithViews(/*opt => opt.Conventions.Add(new TestControllerModelConvention())*/)
+                .AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -33,14 +39,28 @@ namespace WebStore
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
             }
 
             app.UseStaticFiles(); //important for using files, pictures, ....
 
             app.UseRouting();
 
+            app.UseWelcomePage("/welcome");
+
+            app.UseMiddleware<TestMiddleware>();
+
+            // localhost:5000/hello?id=5
+            app.MapWhen(
+                context => context.Request.Query.ContainsKey("id") && context.Request.Query["id"] == "5", 
+                context => context.Run(async request => await request.Response.WriteAsync("Hello with id = 5"))
+            );
+
+            app.Map("/hello",
+                context => context.Run(async request => await request.Response.WriteAsync("Hello!!!")));
             app.UseEndpoints(endpoints =>
             {
+                // Проекция запроса на действие
                 endpoints.MapGet("/greetings", async context =>
                 {
                     await context.Response.WriteAsync(Configuration["Greetings"]);
