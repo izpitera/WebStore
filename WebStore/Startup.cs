@@ -28,14 +28,18 @@ namespace WebStore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IEmployeesData, InMemoryEmployeesData>();
+            services.AddTransient<IProductData, InMemoryProductData>();
+
             //services.AddMvc(/*opt => opt.Conventions.Add(new TestControllerModelConvention())*/);
             services.AddControllersWithViews(/*opt => opt.Conventions.Add(new TestControllerModelConvention())*/)
                 .AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env/*, IServiceProvider services*/)
         {
+            //var employees = services.GetService<IEmployeesData>();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
