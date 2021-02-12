@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using WebStore.Domain.Entities.Identity;
@@ -8,6 +9,7 @@ using WebStore.ViewModels;
 
 namespace WebStore.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly UserManager<User> _UserManager;
@@ -23,9 +25,10 @@ namespace WebStore.Controllers
 
         #region Register
 
+        [AllowAnonymous]
         public IActionResult Register() => View(new RegisterUserViewModel());
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken, AllowAnonymous]
         public async Task<IActionResult> Register(RegisterUserViewModel Model)
         {
             if (!ModelState.IsValid) return View(Model);
@@ -42,7 +45,11 @@ namespace WebStore.Controllers
             {
                 _Logger.LogInformation("User {0} registered successfully", Model.UserName);
 
+                await _UserManager.AddToRoleAsync(user, Role.User);
+
                 await _SignInManager.SignInAsync(user, false);
+                _Logger.LogInformation("Role {0} attached to user {1}", Role.User, Model.UserName);
+
 
                 return RedirectToAction("Index", "Home");
             }
@@ -62,9 +69,10 @@ namespace WebStore.Controllers
 
         #region Login
 
+        [AllowAnonymous]
         public IActionResult Login(string ReturnUrl) => View(new LoginViewModel {ReturnUrl = ReturnUrl});
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken, AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel Model)
         {
             if (!ModelState.IsValid) return View(Model);

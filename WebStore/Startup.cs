@@ -68,7 +68,7 @@ namespace WebStore
                 opt.SlidingExpiration = true;
             });
 
-            //services.AddTransient<IEmployeesData, InMemoryEmployeesData>();
+            services.AddTransient<IEmployeesData, InMemoryEmployeesData>();
             services.AddTransient<IProductData, SqlProductData>();
 
             //services.AddMvc(/*opt => opt.Conventions.Add(new TestControllerModelConvention())*/);
