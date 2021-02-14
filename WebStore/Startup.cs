@@ -119,10 +119,16 @@ namespace WebStore
                 });
 
                 endpoints.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+
+                endpoints.MapControllerRoute(
                     "default",
                     "{controller=Home}/{action=Index}/{id?}");
                 //http://localhost:5000 -> controller = "Home" action = "Index" parameter = null
                 //http://localhost:5000/Catalog/Products/5 -> controller = "Catalog" action = "Products" parameter = 5
+                
             });
         }
     }
