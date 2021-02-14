@@ -13,6 +13,7 @@ using WebStore.Domain.Entities.Identity;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.Infrastructure.Middleware;
 using WebStore.Infrastructure.Services;
+using WebStore.Infrastructure.Services.InCookies;
 using WebStore.Infrastructure.Services.InMemory;
 using WebStore.Infrastructure.Services.InSQL;
 
@@ -68,8 +69,9 @@ namespace WebStore
                 opt.SlidingExpiration = true;
             });
 
-            //services.AddTransient<IEmployeesData, InMemoryEmployeesData>();
+            services.AddTransient<IEmployeesData, InMemoryEmployeesData>();
             services.AddTransient<IProductData, SqlProductData>();
+            services.AddTransient<ICartService, InCookiesCartService>();
 
             //services.AddMvc(/*opt => opt.Conventions.Add(new TestControllerModelConvention())*/);
             services.AddControllersWithViews(/*opt => opt.Conventions.Add(new TestControllerModelConvention())*/)

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using WebStore.DAL.Context;
+using WebStore.Domain.Entities.Identity;
 
 namespace WebStore.Data
 {
@@ -13,11 +15,19 @@ namespace WebStore.Data
     {
         private readonly WebStoreDB _db;
         private ILogger<WebStoreDbInitializer> _Logger;
+        private readonly UserManager<User> _UserManager;
+        private readonly RoleManager<Role> _RoleMananger;
 
-        public WebStoreDbInitializer(WebStoreDB db, ILogger<WebStoreDbInitializer> Logger)
+        public WebStoreDbInitializer(
+            WebStoreDB db, 
+            ILogger<WebStoreDbInitializer> Logger,
+            UserManager<User> UserManager,
+            RoleManager<Role> RoleMananger)
         {
             _db = db;
             _Logger = Logger;
+            _UserManager = UserManager;
+            _RoleMananger = RoleMananger;
         }
 
         public void Initialize()
@@ -41,6 +51,7 @@ namespace WebStore.Data
             try
             {
                 InitializeProducts();
+                InitializeIdentityAsync().Wait();
             }
             catch (Exception error)
             {
@@ -93,6 +104,49 @@ namespace WebStore.Data
 
             _Logger.LogInformation("Products initialization completed ({0:0.0###} sec.)", timer.Elapsed.TotalSeconds);
 
+        }
+
+        private async Task InitializeIdentityAsync()
+        {
+            var timer = Stopwatch.StartNew();
+            _Logger.LogInformation("Identity initialization...");
+
+            async Task CheckRole(string RoleName)
+            {
+                if (!await _RoleMananger.RoleExistsAsync(RoleName))
+                {
+                    _Logger.LogInformation("Role {0} was not found. Creating...", RoleName);
+                    await _RoleMananger.CreateAsync(new Role { Name = RoleName });
+                    _Logger.LogInformation("Role {0} created.", RoleName);
+                }
+                    
+            }
+
+            await CheckRole(Role.Administrator);
+            await CheckRole(Role.User);
+
+            if (await _UserManager.FindByNameAsync(User.Administrator) is null)
+            {
+                _Logger.LogInformation("Admin was not found");
+                var admin = new User
+                {
+                    UserName = User.Administrator
+                };
+
+                var creation_result = await _UserManager.CreateAsync(admin, User.DefaultAdminPassword);
+                if (creation_result.Succeeded)
+                {
+                    await _UserManager.AddToRoleAsync(admin, Role.Administrator);
+                    _Logger.LogInformation("Admin was created");
+                }
+                else
+                {
+                    var errors = creation_result.Errors.Select(e => e.Description);
+                    throw new InvalidOperationException($"Admin creation error: {string.Join(",", errors)}");
+                }
+            } 
+
+            _Logger.LogInformation("Identity initialization ended successfully ({0:0.0###} sec.)", timer.Elapsed.Seconds);
         }
     }
 }

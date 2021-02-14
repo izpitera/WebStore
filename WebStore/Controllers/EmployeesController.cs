@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using WebStore.Data;
+using WebStore.Domain.Entities.Identity;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.Models;
 using WebStore.ViewModels;
@@ -11,12 +13,13 @@ using WebStore.ViewModels;
 namespace WebStore.Controllers
 {
     //[Route("staff")]
+    [Authorize]
     public class EmployeesController : Controller
     {
         private readonly IEmployeesData _EmployeesData;
-        public EmployeesController(IEmployeesData employeesData)
+        public EmployeesController(IEmployeesData EmployeesData)
         {
-            _EmployeesData = employeesData;
+            _EmployeesData = EmployeesData;
         }
 
         //[Route("all")]
@@ -38,6 +41,7 @@ namespace WebStore.Controllers
 
         #region Edit
 
+        [Authorize(Roles = Role.Administrator)]
         public IActionResult Edit(int? id)
         {
             if (id is null) return View(new EmployeeViewModel());
@@ -59,6 +63,7 @@ namespace WebStore.Controllers
         }
 
         [HttpPost] //Name can be same if it has method => httpPost
+        [Authorize(Roles = Role.Administrator)] // can be several roles comma delimited or several lines with dif. roles
         public IActionResult Edit(EmployeeViewModel model)
         {
             if (model is null) throw new ArgumentNullException(nameof(model));
@@ -89,6 +94,7 @@ namespace WebStore.Controllers
         #endregion
 
         #region Delete
+        [Authorize(Roles = Role.Administrator)]
         public IActionResult Delete(int id)
         {
             if (id <= 0) return BadRequest();
@@ -109,6 +115,7 @@ namespace WebStore.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = Role.Administrator)]
         public IActionResult DeleteConfirmed(int id)
         {
             _EmployeesData.Delete(id);
