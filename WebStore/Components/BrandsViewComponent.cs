@@ -20,6 +20,7 @@ namespace WebStore.Components
             {
                 Id = brand.Id,
                 Name = brand.Name,
+                ProductsCount = brand.Products.Count() // use method Count() not field Count of Products!!! Count() sends query to db 
             });
     }
 }
