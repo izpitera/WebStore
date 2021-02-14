@@ -7,7 +7,7 @@ using WebStore.Domain;
 using WebStore.Domain.Entities;
 using WebStore.Infrastructure.Interfaces;
 
-namespace WebStore.Infrastructure.Services
+namespace WebStore.Infrastructure.Services.InMemory
 {
     public class InMemoryProductData : IProductData
     {
@@ -26,5 +26,7 @@ namespace WebStore.Infrastructure.Services
 
             return query;
         }
+
+        Product IProductData.GetProductById(int id) => TestData.Products.FirstOrDefault(p => p.Id == id);
     }
 }

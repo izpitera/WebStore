@@ -322,8 +322,8 @@ namespace WebStore.Data
             new Product 
             {
                 Id = 1,
-                Name = "Easy Polo Black Edition",
-                Price = 59.99M,
+                Name = "White Dress",
+                Price = 29.99M,
                 ImageUrl = "product1.jpg",
                 Order = 0,
                 SectionId = 2,
@@ -332,8 +332,8 @@ namespace WebStore.Data
             new Product
             {
                 Id = 2,
-                Name = "Easy Polo Black Edition",
-                Price = 59.99M,
+                Name = "Pink Dress",
+                Price = 49.99M,
                 ImageUrl = "product2.jpg",
                 Order = 1,
                 SectionId = 2,
@@ -342,8 +342,8 @@ namespace WebStore.Data
             new Product
             {
                 Id = 3,
-                Name = "Easy Polo Black Edition",
-                Price = 59.99M,
+                Name = "Red Dress",
+                Price = 49.99M,
                 ImageUrl = "product3.jpg",
                 Order = 2,
                 SectionId = 2,
