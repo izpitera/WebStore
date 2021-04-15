@@ -31,7 +31,9 @@ namespace WebStore
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<WebStoreDB>(opt => opt.UseSqlServer(Configuration.GetConnectionString("Default")));
+            services.AddDbContext<WebStoreDB>(opt => 
+                opt.UseSqlServer(Configuration.GetConnectionString("Default")).UseLazyLoadingProxies());
+
             services.AddTransient<WebStoreDbInitializer>();
 
             services.AddIdentity<User, Role>()
@@ -72,6 +74,7 @@ namespace WebStore
             services.AddTransient<IEmployeesData, InMemoryEmployeesData>();
             services.AddTransient<IProductData, SqlProductData>();
             services.AddTransient<ICartService, InCookiesCartService>();
+            services.AddTransient<IOrderService, SqlOrderService>();
 
             //services.AddMvc(/*opt => opt.Conventions.Add(new TestControllerModelConvention())*/);
             services.AddControllersWithViews(/*opt => opt.Conventions.Add(new TestControllerModelConvention())*/)
@@ -119,10 +122,16 @@ namespace WebStore
                 });
 
                 endpoints.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+
+                endpoints.MapControllerRoute(
                     "default",
                     "{controller=Home}/{action=Index}/{id?}");
                 //http://localhost:5000 -> controller = "Home" action = "Index" parameter = null
                 //http://localhost:5000/Catalog/Products/5 -> controller = "Catalog" action = "Products" parameter = 5
+                
             });
         }
     }
