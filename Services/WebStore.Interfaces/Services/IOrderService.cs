@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Castle.DynamicProxy.Generators.Emitters;
 using WebStore.Domain.Entities.Orders;
 using WebStore.ViewModels;
 
