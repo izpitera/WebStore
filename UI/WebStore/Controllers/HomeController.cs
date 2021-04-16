@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebStore.Data;
-using WebStore.Models;
 
 namespace WebStore.Controllers
 {
