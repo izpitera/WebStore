@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain.ViewModels;
 using WebStore.Interfaces.Services;
+using WebStore.Services.Mapping;
 
 namespace WebStore.Components
 {
@@ -16,11 +17,14 @@ namespace WebStore.Components
         public IViewComponentResult Invoke() => View(GetBrands());
 
         private IEnumerable<BrandsViewModel> GetBrands() =>
-            _ProductData.GetBrands().OrderBy(brand => brand.Order).Select(brand => new BrandsViewModel
-            {
-                Id = brand.Id,
-                Name = brand.Name,
-                ProductsCount = brand.Products.Count() // use method Count() not field Count of Products!!! Count() sends query to db 
-            });
+            _ProductData.GetBrands()
+                .OrderBy(brand => brand.Order)
+                .Select(brand => new BrandsViewModel
+                {
+                    Id = brand.Id,
+                    Name = brand.Name,
+                    // ????
+                    //ProductsCount = brand.Products.Count() // use method Count() not field Count of Products!!! Count() sends query to db 
+                });
     }
 }

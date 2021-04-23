@@ -10,6 +10,6 @@
         public string Sex { get; set; }
         public int Salary { get; set; }
         public string Citizenship { get; set; }
-
+        public override string ToString() => $"{FirstName} {Patronymic} {LastName}";
     }
 }

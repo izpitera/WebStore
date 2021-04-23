@@ -27,14 +27,17 @@ namespace WebStore.Controllers
             {
                 SectionId = SectionId,
                 BrandId = BrandId,
-                Products = products.OrderBy(p => p.Order).ToView() // mapping see Infrastructure
+                Products = products
+                    .OrderBy(p => p.Order)
+                    .FromDTO()
+                    .ToView() // mapping see Infrastructure
             });
         }
 
         public IActionResult Details(int id)
         {
             var product = _ProductData.GetProductById(id);
-            return View(product.ToView()); // using mapping, we can add automapper also
+            return View(product.FromDTO().ToView()); // using mapping, we can add automapper also
         }
     }
 }
