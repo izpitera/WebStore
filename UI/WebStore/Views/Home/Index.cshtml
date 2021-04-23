@@ -2,7 +2,7 @@
 @using WebStore.Services.Mapping
 @inject IProductData ProductData
 @{
-    var products = ProductData.GetProducts()
+    var products = ProductData.GetProducts().FromDTO()// ??????
         .OrderBy(p => p.Order).Take(6).ToView();
 }
 
